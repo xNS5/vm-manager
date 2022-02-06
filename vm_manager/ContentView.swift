@@ -9,11 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var path: String = ""
+    @State private var actionName: String = ""
+    @State private var actionAction: String = ""
+    @State private var actions = ["GUI":"/Applications/VMware Fusion.app/Contents/Library/vmrun start /Users/michaelkennedy/Virtual Machines.localized/%@",
+                                                 "Headless": "/Applications/VMware Fusion.app/Contents/Library/vmrun start /Users/michaelkennedy/Virtual Machines.localized/%@ nogui",
+                                                 "Kill":"/Applications/VMware Fusion.app/Contents/Library/vmrun stop /Users/michaelkennedy/Virtual Machines.localized/%@"]
     @State private var refresh: Int32 = 2000
     @State private var manager = vm_managerApp()
     @State private var maxWidth : CGFloat = 800
-    @State private var maxHeight : CGFloat = 500
+    @State private var maxHeight : CGFloat = 400
     @State private var dropdownList = ["Milliseconds (ms)","Seconds (sec)", "Hours (hr)", "Days (day)"]
+    @State private var currSelected = "";
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -38,22 +44,35 @@ struct ContentView: View {
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .minimumScaleFactor(1.01)
                         .frame(maxWidth: 200, minHeight: 30, maxHeight: 30)
-                    Menu("Time"){
+                    Menu(( self.currSelected.count > 0 ? self.currSelected : "Time")){
                         ForEach(dropdownList, id: \.self){ item in
                             Button(item){
-                                print(item)
+                               print(item)
+                               self.currSelected = item;
                             }
-                            
                         }
                     }
-                    .frame(maxWidth: 100)
+                    .frame(maxWidth: 150)
                 }.padding()
+                Section{
+    
+                    ForEach(actions.sorted(by: >), id: \.key){ key, action in
+                        HStack(alignment: .center, spacing: 6){
+                            Section(header: Text(key)){
+                                Text(action)
+                            }
+                        }
+                    }
+                }
             }
             .frame(maxWidth: maxWidth, maxHeight: maxHeight)
         }
         .padding()
     }
+    
+
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

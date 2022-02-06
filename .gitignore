@@ -6,6 +6,8 @@
 .DS_Store
 
 # Xcode
+## User Settings
+xcuserdata/
 
 ## Build generated
 build/

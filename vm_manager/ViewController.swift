@@ -10,7 +10,6 @@ import AppKit
 class ViewController{
     
     
-    
-    
+        
     
 }
