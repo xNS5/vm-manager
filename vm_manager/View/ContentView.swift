@@ -8,17 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var path: String = ""
-    @State private var actionName: String = ""
-    @State private var actionAction: String = ""
-    @State private var actions = ["GUI":"/Applications/VMware Fusion.app/Contents/Library/vmrun start /Users/michaelkennedy/Virtual Machines.localized/%@",
-                                                 "Headless": "/Applications/VMware Fusion.app/Contents/Library/vmrun start /Users/michaelkennedy/Virtual Machines.localized/%@ nogui",
-                                                 "Kill":"/Applications/VMware Fusion.app/Contents/Library/vmrun stop /Users/michaelkennedy/Virtual Machines.localized/%@"]
-    @State private var refresh: Int32 = 2000
+    @Environment private var modelData = VMData.default
+    @Environment private var dataController = UserDataController()
     @State private var manager = vm_managerApp()
+    @State private var refresh: Int32 = 2000
     @State private var maxWidth : CGFloat = 800
     @State private var maxHeight : CGFloat = 400
-    @State private var dropdownList = ["Milliseconds (ms)","Seconds (sec)", "Hours (hr)", "Days (day)"]
     @State private var currSelected = "";
     
     var body: some View {
@@ -28,7 +23,7 @@ struct ContentView: View {
                     Text("VM Path")
                         .font(.callout)
                         .bold()
-                    TextField(/*@START_MENU_TOKEN@*/"Path"/*@END_MENU_TOKEN@*/, text: $path)
+                    TextField(/*@START_MENU_TOKEN@*/"Path"/*@END_MENU_TOKEN@*/, text: "Test")
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .accessibilityLabel("Virtual Machine Directory Path")
                     Button("Browse") {

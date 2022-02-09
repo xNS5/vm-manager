@@ -24,7 +24,7 @@ class UserDataController{
     // Gets the path of the virtual machine directory
     // The assumption is that the VMs live in a single directory and not in separate.
     public func getMachinePath() -> String? {
-        return readValue(for: pathKey)
+        return readValue(for: pathKey) ?? ""
     }
     
     // This function returns a single dictionary element containing one key, value pair
@@ -33,7 +33,7 @@ class UserDataController{
         return readValue(for: refreshKey) ?? nil
     }
     
-    
+
     // This function returns a dictionary containing a key value pair of Strings.
     // These strings correspond to a "name" and an "action".
     public func getActions() -> Dictionary<String, String>?{
